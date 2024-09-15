@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 // import SideBar from "../components/Bars/SideBar";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import TopBar from "../components/Bars/TopBar";
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getDownLineUsers,
   getDriverList,
+  getOwnUserInfo,
   selectAllDrivers,
   selectAllDriversStatus,
   selectUser,
@@ -24,11 +25,13 @@ import {
   getReward,
   setRewardSelectBoxData,
 } from "../app/RewardSlice/rewardSlice.jsx";
+import Loader from "../components/Loader/Loader.jsx";
 
 const LayoutCmp = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const nav = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   // const driversFull = useSelector(selectAllDrivers);
   // const driversFullStatus = useSelector(selectAllDriversStatus);
@@ -66,12 +69,13 @@ const LayoutCmp = () => {
   const getUsers = useCallback(() => {
     currentUser.role === "Admin"
       ? dispatch(getDownLineUsers({ api: "user?role=Agent" }))
-      : dispatch(getDownLineUsers({ api: "user?page=1&limit=10" }));
+      : dispatch(getDownLineUsers({ api: "user" }));
   }, [currentUser, dispatch]);
   const getRewards = useCallback(() => {
     currentUser.role === "Admin" && dispatch(getReward({ api: "reward" }));
   }, [currentUser, dispatch]);
   useEffect(() => {
+    // dispatch(getOwnUserInfo({ api: `user/${currentUser._id}` }));
     getRewards();
     getUsers();
   }, [getUsers, getRewards]);
@@ -84,38 +88,23 @@ const LayoutCmp = () => {
       dispatch(setRewardSelectBoxData(selectData));
     }
   }, [reward]);
-  console.log(reward);
-  // useEffect(() => {
-  //   dispatch(getDriverList({ api: `getAllDriver` }));
-  //   dispatch(getFullCarsList({ api: "carlists" }));
-  // }, []);
-  // useEffect(() => {
-  //   if (driversFullStatus === "success") {
-  //     const selectData = driversFull.map((d) => {
-  //       return { label: d.dname, value: `${d.id}` };
-  //     });
-  //     selectData.unshift({ label: "Select Driver", value: "" });
-  //     dispatch(setSelectBoxDrivers(selectData));
-  //     // console.log(selectData);
-  //   }
-  //   if (carsFullStatus === "success") {
-  //     // console.log(carsFull);
-  //     const selectData = carsFull.map((d) => {
-  //       return { label: d.car_no, value: `${d.id}` };
-  //     });
-  //     selectData.unshift({ label: "Select Car", value: "" });
-  //     // console.log(selectData);
-  //     dispatch(setSelectBoxCars(selectData));
-  //   }
-  // }, [driversFullStatus, carsFullStatus]);
   useEffect(() => {
     document.title = getTitle(location.pathname);
   }, [location.pathname]);
-  // useEffect(() => {
-  //   if (!currentUser) nav("/login");
-  // }, [currentUser]);
+  useEffect(() => {
+    if (!currentUser) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [currentUser, dispatch]);
+  useEffect(() => {
+    dispatch(getOwnUserInfo({ api: `user/${currentUser._id}` }));
+  }, []);
   // console.log(location.pathname, location.pathname.split("/"));
-  return (
+  return loading ? (
+    <Loader spin={true} fullscreen={true} />
+  ) : (
     <Layout hasSider>
       <Sider
         style={{
@@ -143,7 +132,7 @@ const LayoutCmp = () => {
           theme="dark"
           mode="inline"
           selectedKeys={`/${location.pathname.split("/")[1]}`}
-          items={sideBarData}
+          items={sideBarData(currentUser)}
           onClick={handleMenuClick}
         />
       </Sider>

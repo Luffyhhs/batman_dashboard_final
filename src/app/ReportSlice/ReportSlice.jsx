@@ -1,11 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getDataWithToken } from "../../utilities/ApiCalls";
+import { getDataWithToken, postDataWithToken } from "../../utilities/ApiCalls";
 
 const initialState = {
   reportList: [],
   reportListStatus: "idle",
   reportListMsg: "",
   reportListTotal: 0,
+
+  updateReportStatus: "idle",
+  updateReportMsg: "",
 };
 
 export const getReportList = createAsyncThunk(
@@ -13,8 +16,23 @@ export const getReportList = createAsyncThunk(
   async ({ api }, thunkApi) => {
     try {
       const response = await getDataWithToken(api);
-      if (response.status === 0) {
-        return thunkApi.rejectWithValue(response.message);
+      if (response.status === "failed") {
+        return thunkApi.rejectWithValue(response);
+      }
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const updateReport = createAsyncThunk(
+  "report/updateReport",
+  async ({ api, pData }, thunkApi) => {
+    try {
+      const response = await postDataWithToken(api, pData);
+      if (response.status === "failed") {
+        return thunkApi.rejectWithValue(response);
       }
       return response;
     } catch (error) {
@@ -40,6 +58,17 @@ export const reportSlice = createSlice({
       .addCase(getReportList.rejected, (state, action) => {
         state.reportListStatus = "fail";
         state.reportListMsg = action.payload.message;
+      })
+      .addCase(updateReport.pending, (state) => {
+        state.updateReportStatus = "loading";
+      })
+      .addCase(updateReport.fulfilled, (state, action) => {
+        state.updateReportStatus = "success";
+        state.updateReportMsg = action.payload.message;
+      })
+      .addCase(updateReport.rejected, (state, action) => {
+        state.updateReportStatus = "fail";
+        state.updateReportMsg = action.payload.message;
       });
   },
 });

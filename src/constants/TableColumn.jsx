@@ -4,6 +4,7 @@ import { FaAngleDown, FaEye, FaTrashCan } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { dateFormatChange } from "../utilities/UtilFunctions";
 import dayjs from "dayjs";
+import { updateReport } from "../app/ReportSlice/ReportSlice";
 
 export const carouselAdsColumns = (setAdsId, setOpen) => {
   return [
@@ -345,7 +346,12 @@ export const agentColumns = (setBanOpen, setEditOpen, setAgentId) => {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (text) => (text ? "Active" : "Banned"),
+      render: (text) =>
+        text ? (
+          <span className="text-green-500">Active</span>
+        ) : (
+          <span className="text-red-500">Banned</span>
+        ),
     },
     {
       title: "Created At",
@@ -425,6 +431,117 @@ export const agentColumns = (setBanOpen, setEditOpen, setAgentId) => {
     },
   ];
 };
+export const userColumns = (setBanOpen, setEditOpen, setUserId) => {
+  return [
+    {
+      title: "No",
+      dataIndex: "id",
+      key: "id",
+      render: (text, record, index) => index + 1,
+    },
+    {
+      title: "User Name",
+      dataIndex: "name",
+      key: "name",
+      // render: (text, record) => {
+      //   console.log(text, record);
+      //   return record?.user?.name;
+      // },
+    },
+    {
+      title: "Unit",
+      dataIndex: "deposits",
+      key: "deposits",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (text) =>
+        text ? (
+          <span className="text-green-500">Active</span>
+        ) : (
+          <span className="text-red-500">Banned</span>
+        ),
+    },
+    {
+      title: "Created At",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (text) => {
+        return dayjs(text).format("DD-MM-YYYY");
+      },
+    },
+    {
+      title: "Actions",
+      key: "action",
+      render: (text, record) => {
+        let menuItems = [
+          // {
+          //   key: "view",
+          //   label: (
+          //     <div
+          //       // onClick={() => nav(`${record.id}`, { state: { ...record } })}
+          //       className=" flex gap-2 items-center"
+          //     >
+          //       <FaEye /> <span className=" inline-block">View</span>
+          //     </div>
+          //   ),
+          // },
+          {
+            key: "edit",
+            label: (
+              <div
+                className=" flex gap-2 items-center"
+                onClick={() => {
+                  setEditOpen(true);
+                  setUserId(record._id);
+                }}
+              >
+                <FaRegEdit /> <span className=" inline-block">Top Up</span>
+              </div>
+            ),
+          },
+          {
+            key: "ban",
+            label: (
+              <div
+                className=" flex gap-2 items-center"
+                onClick={() => {
+                  setBanOpen(true);
+                  setUserId(record._id);
+                }}
+              >
+                <FaTrashCan /> <span className=" inline-block">Ban</span>
+              </div>
+            ),
+          },
+        ];
+        record.status === "out" && menuItems.splice(0, menuItems.length);
+        if (record.status === "requested") {
+          menuItems = menuItems.slice(-1);
+        }
+
+        // console.log(menuItems);
+        return (
+          record.status !== "out" && (
+            <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
+              <a
+                className="ant-dropdown-link flex items-center"
+                onClick={(e) => e.preventDefault()}
+              >
+                Actions{" "}
+                <span>
+                  <FaAngleDown />
+                </span>
+              </a>
+            </Dropdown>
+          )
+        );
+      },
+    },
+  ];
+};
 
 export const reportColumns = () => {
   return [
@@ -468,9 +585,81 @@ export const reportColumns = () => {
       key: "gaveToUser",
       render: (text) => (
         <span className={`${text ? "text-green-500" : "text-red-500"}`}>
-          {text}
+          {text ? "Given" : "Not Given"}
         </span>
       ),
+    },
+    {
+      title: "Date",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (text) => {
+        return dayjs(text).format("DD-MM-YYYY");
+      },
+    },
+    {
+      title: "Time",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (text) => {
+        return dayjs(text).format("HH:mm:ss");
+      },
+    },
+  ];
+};
+export const agentReportColumns = (dispatch) => {
+  return [
+    {
+      title: "No",
+      dataIndex: "id",
+      key: "id",
+      render: (text, record, index) => {
+        return index + 1;
+      },
+    },
+    {
+      title: "Lucky Number",
+      dataIndex: "lucky.code",
+      key: "lucky.code",
+      render: (text, record) => {
+        console.log(text, record);
+        return record?.lucky?.code;
+      },
+    },
+    {
+      title: "User",
+      dataIndex: "user.name",
+      key: "user.name",
+      render: (text, record) => {
+        console.log(text, record);
+        return record?.user?.name;
+      },
+    },
+    {
+      title: "Given (Or) Not",
+      dataIndex: "gaveToUser",
+      key: "gaveToUser",
+      render: (text, record) => {
+        // console.log(text);
+        return (
+          <>
+            {!text && (
+              <Switch
+                defaultChecked={text}
+                onChange={(e) => {
+                  console.log(e);
+                  dispatch(
+                    updateReport({ api: "report", pData: { id: record._id } })
+                  );
+                }}
+              />
+            )}
+            <span className={`${text ? "text-green-500" : "text-red-500"}`}>
+              {text ? "Given" : "Not Given"}
+            </span>
+          </>
+        );
+      },
     },
     {
       title: "Date",
@@ -1459,86 +1648,86 @@ export const maintenanceColumns = (nav, setOpen, setMaintenanceId) => {
   ];
 };
 
-export const userColumns = (nav, setOpen, setUserId) => {
-  return [
-    {
-      title: "No",
-      dataIndex: "id",
-      key: "id",
-      render: (text, record, index) => <a>{index + 1}</a>,
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Login ID",
-      dataIndex: "loginId",
-      key: "loginId",
-    },
-    {
-      title: "Created At",
-      dataIndex: "created_at",
-      key: "created_at",
-      render: (text) => dateFormatChange(text),
-      align: "right",
-    },
-    {
-      title: "Updated At",
-      dataIndex: "updated_at",
-      key: "updated_at",
-      render: (text) => dateFormatChange(text),
-      align: "right",
-    },
-    {
-      title: "Actions",
-      key: "action",
-      render: (text, record) => {
-        const menuItems = [
-          {
-            key: "edit",
-            label: (
-              <div
-                className=" flex gap-2 items-center"
-                onClick={() =>
-                  nav(`${record.id}/edit`, { state: { ...record } })
-                }
-              >
-                <FaRegEdit /> <span className="inline-block">Edit</span>
-              </div>
-            ),
-          },
-          {
-            key: "delete",
-            label: (
-              <div
-                className=" flex gap-2 items-center"
-                onClick={() => {
-                  setOpen(true);
-                  setUserId(record.id);
-                }}
-              >
-                <FaTrashCan /> <span className="inline-block">Delete</span>
-              </div>
-            ),
-          },
-        ];
+// export const userColumns = (nav, setOpen, setUserId) => {
+//   return [
+//     {
+//       title: "No",
+//       dataIndex: "id",
+//       key: "id",
+//       render: (text, record, index) => <a>{index + 1}</a>,
+//     },
+//     {
+//       title: "Name",
+//       dataIndex: "name",
+//       key: "name",
+//     },
+//     {
+//       title: "Login ID",
+//       dataIndex: "loginId",
+//       key: "loginId",
+//     },
+//     {
+//       title: "Created At",
+//       dataIndex: "created_at",
+//       key: "created_at",
+//       render: (text) => dateFormatChange(text),
+//       align: "right",
+//     },
+//     {
+//       title: "Updated At",
+//       dataIndex: "updated_at",
+//       key: "updated_at",
+//       render: (text) => dateFormatChange(text),
+//       align: "right",
+//     },
+//     {
+//       title: "Actions",
+//       key: "action",
+//       render: (text, record) => {
+//         const menuItems = [
+//           {
+//             key: "edit",
+//             label: (
+//               <div
+//                 className=" flex gap-2 items-center"
+//                 onClick={() =>
+//                   nav(`${record.id}/edit`, { state: { ...record } })
+//                 }
+//               >
+//                 <FaRegEdit /> <span className="inline-block">Edit</span>
+//               </div>
+//             ),
+//           },
+//           {
+//             key: "delete",
+//             label: (
+//               <div
+//                 className=" flex gap-2 items-center"
+//                 onClick={() => {
+//                   setOpen(true);
+//                   setUserId(record.id);
+//                 }}
+//               >
+//                 <FaTrashCan /> <span className="inline-block">Delete</span>
+//               </div>
+//             ),
+//           },
+//         ];
 
-        return (
-          <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
-            <a
-              className="ant-dropdown-link flex items-center"
-              onClick={(e) => e.preventDefault()}
-            >
-              Actions{" "}
-              <span>
-                <FaAngleDown />
-              </span>
-            </a>
-          </Dropdown>
-        );
-      },
-    },
-  ];
-};
+//         return (
+//           <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
+//             <a
+//               className="ant-dropdown-link flex items-center"
+//               onClick={(e) => e.preventDefault()}
+//             >
+//               Actions{" "}
+//               <span>
+//                 <FaAngleDown />
+//               </span>
+//             </a>
+//           </Dropdown>
+//         );
+//       },
+//     },
+//   ];
+// };

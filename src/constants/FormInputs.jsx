@@ -182,7 +182,7 @@ export const createUserInputs = [
   {
     label: "Password",
     name: "password",
-    type: "password",
+    type: "text",
     rules: [{ required: true, message: "Please enter Password!" }],
   },
 ];

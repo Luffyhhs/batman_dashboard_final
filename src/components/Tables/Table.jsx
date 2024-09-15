@@ -151,7 +151,7 @@ const CustomTable = ({
       )}
       <Table
         className={classNames(
-          "max-w-[100%] table-scroll bg-white dark:!border-[#191e3a] dark:bg-black shadow-md dark:shadow-white/10 mt-2",
+          "max-w-[100%] table-scroll bg-white mt-2",
           className
         )}
         bordered
@@ -165,7 +165,7 @@ const CustomTable = ({
           pagination
             ? {
                 ...pagination,
-                position: ["bottomCenter topCenter"],
+                position: ["bottomCenter", "topCenter"],
               }
             : false
         }

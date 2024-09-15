@@ -2,6 +2,7 @@ import React from "react";
 import { FaPersonBurst, FaPowerOff } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../app/UserSlice/UserSlice";
+import { FaDollarSign } from "react-icons/fa";
 
 const TopBar = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,16 @@ const TopBar = () => {
             /> */}
             <FaPersonBurst />
             <p>{currentUser.name}</p>
+          </div>
+
+          <div className="flex items-center gap-2 h-full hover:bg-[#0000001a] p-4 cursor-pointer">
+            {/* <img
+              src="https://cardb.linnit.io/img/admin.png"
+              alt="name"
+              className="w-10 h-full"
+            /> */}
+            <FaDollarSign />
+            <p>{currentUser.unit}</p>
           </div>
 
           <div

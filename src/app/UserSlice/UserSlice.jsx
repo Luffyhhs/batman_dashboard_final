@@ -30,38 +30,6 @@ const initialState = {
   loginStatus: "idle",
   loginError: false,
   loginMsg: "",
-
-  updateDriverStatus: "idle",
-  updateDriverMsg: "",
-
-  driversFull: [],
-  getDriversStatus: "idle",
-  getDriversMsg: "",
-
-  totalDrivers: 0,
-
-  driversList: [],
-  getDriversListStatus: "idle",
-  getDriversListMsg: "",
-
-  driverDetails: {},
-  driverDetailsStatus: "idle",
-  driverDetailsMsg: "",
-
-  driverDetailsHistory: {},
-  driverDetailsHistoryStatus: "idle",
-  driverDetailsHistoryMsg: "",
-  driverDetailsHistoryTotal: 0,
-
-  driverDetailsFuel: {},
-  driverDetailsFuelStatus: "idle",
-  driverDetailsFuelMsg: "",
-  driverDetailsFuelTotal: 0,
-
-  driverDetailsMaintenance: {},
-  driverDetailsMaintenanceStatus: "idle",
-  driverDetailsMaintenanceMsg: "",
-  driverDetailsMaintenanceTotal: 0,
 };
 
 export const getDownLineUsers = createAsyncThunk(
@@ -72,6 +40,29 @@ export const getDownLineUsers = createAsyncThunk(
       if (response.status === "failed") {
         return thunkApi.rejectWithValue(response.message);
       }
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const getOwnUserInfo = createAsyncThunk(
+  "user/getOwnUserInfo",
+  async ({ api }, thunkApi) => {
+    try {
+      const response = await getDataWithToken(api);
+      if (response.status === "failed") {
+        return thunkApi.rejectWithValue(response.message);
+      }
+      if (response.status === "succeed") {
+        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem(
+          "token",
+          JSON.stringify(response.data.refreshToken)
+        );
+      }
+      console.log(response);
       return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
@@ -307,6 +298,18 @@ const userSlice = createSlice({
         state.loginStatus = "fail";
         state.loginLoading = false;
         state.loginMsg = action.payload.message;
+      })
+      .addCase(getOwnUserInfo.pending, (state) => {
+        state.getOwnUserInfoStatus = "loading";
+      })
+      .addCase(getOwnUserInfo.fulfilled, (state, action) => {
+        state.getOwnUserInfoStatus = "success";
+        state.currentUser = action.payload.data;
+        state.getOwnUserInfoMsg = action.payload.message;
+      })
+      .addCase(getOwnUserInfo.rejected, (state, action) => {
+        state.getOwnUserInfoStatus = "fail";
+        state.getOwnUserInfoMsg = action.payload.message;
       })
       .addCase(logout.fulfilled, (state) => {
         state.currentUser = null;
