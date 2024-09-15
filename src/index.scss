@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --text-color: #231f20;
+  --primary-color: #212a42;
+  --primary-bg: #0d4091;
+  --secondary-color: #2d54a4;
+  --tertiary-color: #061985;
+  --text-white: #fff;
+  --gray: #000000b3;
+  --detail-btn: #0d6efd;
+  --secondary-gray: #b3b8c1;
+  --secondary-bg: #185ba9;
+  --tertiary-gray: #eeeeee;
+  --btn-bg: #198754;
+  --btn-hov-bg: #157347;
+}
+a {
+  text-decoration: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 75%;
+}
+
+body {
+  font-family: "Linn", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.1;
+  min-height: 100vh;
+}
+
+.table-row-red {
+  color: #f92d2d;
+  // &:hover td {
+  //   background-color: #fe8a8a !important;
+  // }
+}
+
+.table-row-yellow {
+  color: #f39c13;
+  // &:hover td {
+  //   background-color: #fcfc96 !important;
+  // }
+}
+
+.table-row-green {
+  color: #268902;
+  // &:hover td {
+  //   background-color: #fcfc96 !important;
+  // }
+}
+
+.active {
+  @apply text-slate-500;
+  @apply bg-white;
+  @apply border-b-2;
+  @apply border-slate-500;
+}
+
+.table-scroll {
+  @media only screen and (max-width: 64em) {
+    overflow-x: auto;
+  }
+}
+
+.react-resizable {
+  position: relative;
+  background-clip: padding-box;
+}
+
+.react-resizable-handle {
+  position: absolute;
+  right: -5px;
+  bottom: 0;
+  z-index: 1;
+  width: 10px;
+  height: 100%;
+  cursor: col-resize;
+}

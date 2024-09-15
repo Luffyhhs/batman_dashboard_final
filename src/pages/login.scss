@@ -1,0 +1,101 @@
+.login {
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+
+  .box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(
+        -105deg,
+        rgba(239, 239, 239, 0.9) 0%,
+        rgba(239, 239, 239, 0.9) 50%,
+        transparent 50%
+      ),
+      url("/imgs/login_bg.jpg");
+    // background-image: url("/public/imgs/login_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    // margin-top: 5rem;
+    font-size: 2.2rem;
+    // height: 35rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    @media only screen and (max-width: 768px) {
+      position: relative;
+      background: linear-gradient(
+          to right,
+          rgba(239, 239, 239, 0.9) 0%,
+          rgba(239, 239, 239, 0.9) 100%
+        ),
+        url("/imgs/login_bg.jpg");
+      background-size: cover;
+    }
+    // .logo {
+    //   background: url("/imgs/logo.png");
+    //   background-size: cover;
+    //   background-repeat: no-repeat;
+    // }
+    &-form {
+      // background: linear-gradient(
+      //   rgba(239, 239, 239, 0.9) 0%,
+      //   rgba(239, 239, 239, 0.9) 50%,
+      //   rgba(239, 239, 239, 0.9) 100%
+      // );
+      margin-left: auto;
+      width: 80%;
+      height: 100%;
+      // padding-right: 5rem;
+      // padding: 3rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      @media only screen and (max-width: 768px) {
+        padding-right: 0;
+      }
+      // justify-content: space-around;
+      &--title {
+        font-size: 1.8rem;
+        font-weight: 400;
+      }
+      &--btn {
+        display: flex;
+        justify-content: stretch;
+        align-items: center;
+        margin-top: 1rem;
+        font-size: 1.6rem;
+        padding: 0 3rem;
+        .login-btn {
+          color: #ffffff;
+          background: #ffbc00;
+          border-color: #765700;
+          outline: none;
+          border: none;
+          padding: 0.8rem 1.6rem;
+          &:hover {
+            background: #765700;
+
+            border-color: #ffbc00;
+          }
+        }
+        label {
+          font-size: 1.6rem;
+          input {
+            margin-right: 0.5rem;
+          }
+        }
+      }
+      input {
+        padding: 0.5rem 1rem;
+        border: 1px solid #d1d1d1;
+        outline: none;
+        font-size: 1.2rem;
+        &:active,
+        &:focus {
+          border: 1px solid #204d74;
+        }
+      }
+    }
+  }
+}

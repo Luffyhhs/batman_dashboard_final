@@ -1,0 +1,184 @@
+"show total kilo"
+
+
+[
+  {
+    "id": 1,
+    "car_no": "John",
+    "kilo": 30
+  },
+  {
+    "id": 2,
+    "car_no": "John",
+    "kilo": 30
+  },
+  {
+    "id": 3,
+    "car_no": "John",
+    "kilo": 30
+  },
+  {
+    "id": 4,
+    "car_no": "John",
+    "kilo": 30
+  }
+]
+
+
+show fuel cost 
+
+[
+    {
+        "date":01-01-2024,
+        "cost": 3000
+    },
+    {
+        "date":01-01-2024,
+        "cost": 3000
+    },
+    {
+        "date":01-01-2024,
+        "cost": 3000
+    },
+    {
+        "date":01-01-2024,
+        "cost": 3000
+    },
+    {
+        "date":01-01-2024,
+        "cost": 3000
+    }
+]
+
+
+show maintenance cost
+
+[
+    {
+        "date":01-01-2024,
+        "cost": 3000
+    },
+    {
+        "date":01-01-2024,
+        "cost": 3000
+    },
+    {
+        "date":01-01-2024,
+        "cost": 3000
+    },
+    {
+        "date":01-01-2024,
+        "cost": 3000
+    },
+    {
+        "date":01-01-2024,
+        "cost": 3000
+    }
+]
+
+
+{
+    "back_axis"
+: 
+"SUZUKI ERTIGA INDEP"
+,"branch"
+: 
+"Linn"
+,"car_load"
+: 
+"6P"
+,"car_no": "7Q/9221",
+"color"
+: 
+"White"
+,"created_at"
+: 
+"2020-08-12 00:51:13"
+,"demo"
+: 
+0
+,"end_kilo"
+: 
+115876
+,"engine_power"
+: 
+"1462 CC"
+,"frame_no"
+: 
+"MS1ANC22S00102627"
+,"frame_type"
+: 
+"SUZUKI ERTIGA APK"
+,"front_axis"
+: 
+"SUZUKI ERTIGA INDEP;"
+,"fuel_type"
+: 
+"Octane"
+,"gear_type"
+: 
+"SUZUKI K15BT(AUTO)"
+,"id"
+: 
+4
+,"licence_back"
+: 
+"https://cardb.linnit.io/uploads/back_licence/kNLKO3WDpn.jpg"
+,"licence_front"
+: 
+"https://cardb.linnit.io/uploads/front_licence/GIlFeb3sXK.jpg"
+,"licenceexpiredate"
+: 
+"2024-10-31"
+,"middle_axis"
+: 
+null
+,"model"
+: 
+"STATION WAGON(4*2)(L)"
+,"model_year"
+: 
+2019
+,"no"
+: 
+1
+,"owner_book"
+: 
+"https://cardb.linnit.io/uploads/owner_bookS5uU0M1bYu.jpg"
+,"owner_name"
+: 
+"U NAY LINN HTIKE"
+,"photo"
+: 
+"https://cardb.linnit.io/uploads/car/MVRM0z8g0K.jpg"
+,"remark"
+: 
+null
+,"status"
+: 
+0
+,"type"
+: 
+"SUZUKI ERTIGA APK"
+,"updated_at"
+: 
+"2024-08-26 09:36:09"
+,"vehicle_ground_clearance"
+: 
+"1750"
+,"vehicle_height"
+: 
+"1700"
+,"vehicle_length"
+: 
+"4390"
+,"vehicle_no"
+: 
+"K15BT1091948"
+,"vehicle_type"
+: 
+"SUZUKI K15BT"
+,"weight"
+: 
+"1130 Kg"
+}
