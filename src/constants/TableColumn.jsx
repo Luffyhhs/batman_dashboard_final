@@ -555,11 +555,19 @@ export const reportColumns = () => {
     },
     {
       title: "Lucky Number",
-      dataIndex: "lucky.code",
-      key: "lucky.code",
+      dataIndex: "lucky_code",
+      key: "lucky_code",
       render: (text, record) => {
         console.log(text, record);
         return record?.lucky?.code;
+      },
+    },
+    {
+      title: "Lucky Value",
+      dataIndex: "lucky_value",
+      key: "lucky_value",
+      render: (text, record) => {
+        return record?.lucky?.value;
       },
     },
     {
@@ -619,11 +627,19 @@ export const agentReportColumns = (dispatch) => {
     },
     {
       title: "Lucky Number",
-      dataIndex: "lucky.code",
-      key: "lucky.code",
+      dataIndex: "lucky_code",
+      key: "lucky_code",
       render: (text, record) => {
         console.log(text, record);
         return record?.lucky?.code;
+      },
+    },{
+      title: "Lucky Value",
+      dataIndex: "lucky_value",
+      key: "lucky_value",
+      render: (text, record) => {
+        console.log(text, record);
+        return record?.lucky?.value;
       },
     },
     {

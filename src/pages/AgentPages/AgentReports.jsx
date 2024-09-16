@@ -10,6 +10,7 @@ import {
 import { getReportList } from "../../app/ReportSlice/ReportSlice";
 import CustomInput from "../../components/Inputs/CustomInput";
 import { agentReportColumns } from "../../constants/TableColumn";
+import { Table } from "antd";
 
 const AgentReports = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,47 @@ const AgentReports = () => {
     const transformParams = transformSearchParams(searchParams);
     return generateQueryString(transformParams);
   }, [searchParams]);
+
+  const columns = agentReportColumns(dispatch);
+
+  const generateSummary = (data) => {
+    const totalAmt = data.reduce(
+      (total, item) => total + item?.lucky?.value,
+      0
+    );
+    // const liters = data.reduce((total, item) => total + item.liters, 0);
+    // const gallons = data.reduce((total, item) => total + item.gallons, 0);
+    // const amount = data.reduce((total, item) => total + item.amount, 0);
+    return {
+      lucky_code: "Total",
+      lucky_value: `${totalAmt.toLocaleString()}`,
+      // end_kilo: `Total Price: `,
+      // liters: `${parseFloat(liters).toFixed(3)}`,
+      // gallons: `${parseFloat(gallons).toFixed(2)}`,
+      // amount: `${amount.toLocaleString()}`,
+      // Add other summary values for specific columns as needed
+    };
+  };
+  const summaryData = generateSummary(reportList);
+  // console.log(summaryData);
+
+  const summary = (
+    <Table.Summary.Row>
+      {columns.map((col, index) => (
+        // console.log(index)
+        <Table.Summary.Cell
+          key={index}
+          index={index}
+          className={`${
+            isNaN(summaryData[col.dataIndex]) ? " font-bold" : ""
+          } text-right`}
+        >
+          {summaryData[col.dataIndex] || ""}
+        </Table.Summary.Cell>
+      ))}
+    </Table.Summary.Row>
+  );
+
   useEffect(() => {
     dispatch(
       getReportList({
@@ -85,9 +127,10 @@ const AgentReports = () => {
         </div>
         <CustomTable
           data={reportList}
-          columns={agentReportColumns(dispatch)}
+          columns={columns}
           onChange={handleTableChange}
           pagination={pagination}
+          summary={summary}
         />
       </div>
     </Container>
