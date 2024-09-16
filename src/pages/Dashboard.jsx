@@ -105,6 +105,7 @@ const Dashboard = () => {
           modifyAdsStatus === "loading" ||
           modifyWheelStatus === "loading"
         }
+        fullscreen={true}
       />
       <ModalCmp
         title={"Delete Ads"}

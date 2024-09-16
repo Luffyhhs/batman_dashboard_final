@@ -5,20 +5,11 @@ import TopBar from "../components/Bars/TopBar";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getDownLineUsers,
-  getDriverList,
   getOwnUserInfo,
-  selectAllDrivers,
-  selectAllDriversStatus,
   selectUser,
   setAgentSelectBox,
-  setSelectBoxDrivers,
 } from "../app/UserSlice/UserSlice";
-import {
-  getFullCarsList,
-  selectCars,
-  selectCarsStatus,
-  setSelectBoxCars,
-} from "../app/CarSlice/CarSlice";
+
 import { Layout, Menu } from "antd";
 import { sideBarData } from "../constants/SideBarData.jsx";
 import {
@@ -33,12 +24,6 @@ const LayoutCmp = () => {
   const nav = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  // const driversFull = useSelector(selectAllDrivers);
-  // const driversFullStatus = useSelector(selectAllDriversStatus);
-  // const carsFull = useSelector(selectCars);
-  // const carsFullStatus = useSelector(selectCarsStatus);
-  // console.log(carsFull, driversFull);
-  // const { car_no } = location.state;
   const { Sider, Content } = Layout;
 
   const getTitle = (path) => {
@@ -101,7 +86,6 @@ const LayoutCmp = () => {
   useEffect(() => {
     dispatch(getOwnUserInfo({ api: `user/${currentUser._id}` }));
   }, []);
-  // console.log(location.pathname, location.pathname.split("/"));
   return loading ? (
     <Loader spin={true} fullscreen={true} />
   ) : (
@@ -115,12 +99,12 @@ const LayoutCmp = () => {
         breakpoint="md"
         zeroWidthTriggerStyle={{ top: "10px" }}
         collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          // console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          // console.log(collapsed, type);
-        }}
+        // onBreakpoint={(broken) => {
+        //   // console.log(broken);
+        // }}
+        // onCollapse={(collapsed, type) => {
+        //   // console.log(collapsed, type);
+        // }}
       >
         <div
           className=" text-white text-center px-5 py-8 cursor-pointer"
@@ -142,11 +126,6 @@ const LayoutCmp = () => {
           <Outlet />
         </Content>
       </Layout>
-      {/*<NavBar />*/}
-      {/*<h1 className="fixed text-2xl font-bold w-full md:w-[20rem] left-0 py-4 text-center text-blue-700 bg-slate-100 z-10">*/}
-      {/*  Linn Car DB*/}
-      {/*</h1>*/}
-      {/*<SideBar />*/}
     </Layout>
   );
 };
