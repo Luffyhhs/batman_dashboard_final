@@ -172,7 +172,7 @@ const LuckyNumbers = () => {
             // onChange={(e) =>
             //   setSearchParams((prev) => ({ ...prev, code: e.target.value }))
             // }
-            placeholder={"ab12345678"}
+            placeholder={"AB12345678"}
             className="sm:w-[10rem] w-[80%]"
             onKeyPress={handleInputKeyPress}
             // value={searchParams.code}
