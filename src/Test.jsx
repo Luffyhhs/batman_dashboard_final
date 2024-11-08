@@ -318,281 +318,281 @@
 //   ];
 // };
 
-import CustomTable from "./components/Tables/Table";
-import Container from "./components/Container";
-import CustomInput from "./components/Inputs/CustomInput";
-import CustomButton from "./components/Buttons/CustomButton";
-import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
-import CustomSelect from "./components/Inputs/CustomSelect";
-import {
-  selectBranch,
-  selectFuelType,
-  selectStatus,
-  selectValidation,
-} from "./constants/SlelectData";
-import { carsColumns } from "./constants/TableColumn";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  changeCar,
-  deleteCar,
-  getCarsListPaginate,
-  selectCarList,
-  selectCarListLoading,
-  selectChangeCarStatus,
-  selectDeleteCarError,
-  selectDeleteCarLoading,
-  selectDeleteCarMsg,
-  selectDeleteCarSuccess,
-  selectTotalCars,
-  selectUpdateCarMsg,
-  selectUpdateCarSuccess,
-} from "./app/CarSlice/CarSlice";
-import { generateQueryString, photoUrlFix } from "./utilities/UtilFunctions";
-import { toast } from "react-toastify";
-import ModalCmp from "./components/Modal/ModalCmp";
-import Notification from "./components/Notification";
-import Loader from "./components/Loader/Loader";
+// import CustomTable from "./components/Tables/Table";
+// import Container from "./components/Container";
+// import CustomInput from "./components/Inputs/CustomInput";
+// import CustomButton from "./components/Buttons/CustomButton";
+// import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
+// import CustomSelect from "./components/Inputs/CustomSelect";
+// import {
+//   selectBranch,
+//   selectFuelType,
+//   selectStatus,
+//   selectValidation,
+// } from "./constants/SlelectData";
+// import { carsColumns } from "./constants/TableColumn";
+// import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+// import { useEffect, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import {
+//   changeCar,
+//   deleteCar,
+//   getCarsListPaginate,
+//   selectCarList,
+//   selectCarListLoading,
+//   selectChangeCarStatus,
+//   selectDeleteCarError,
+//   selectDeleteCarLoading,
+//   selectDeleteCarMsg,
+//   selectDeleteCarSuccess,
+//   selectTotalCars,
+//   selectUpdateCarMsg,
+//   selectUpdateCarSuccess,
+// } from "./app/CarSlice/CarSlice";
+// import { generateQueryString, photoUrlFix } from "./utilities/UtilFunctions";
+// import { toast } from "react-toastify";
+// import ModalCmp from "./components/Modal/ModalCmp";
+// import Notification from "./components/Notification";
+// import Loader from "./components/Loader/Loader";
 
-const Test = () => {
-  const nav = useNavigate();
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [loading, setLoading] = useState(false);
-  const [pagination, setPagination] = useState({
-    current: 1, // Current page number
-    total: 0, // Total number of records
-  });
-  const [open, setOpen] = useState(false);
-  const [carId, setCarId] = useState(null);
-  const [carStatus, setCarStatus] = useState(null);
-  const [searchInputs, setSearchInputs] = useState({
-    keyword: "",
-    check_valid: null,
-    branch: "",
-    status: "",
-  });
-  const [initialCallMade, setInitialCallMade] = useState(false);
-  const carList = useSelector(selectCarList);
-  const total = useSelector(selectTotalCars);
-  const carListLoading = useSelector(selectCarListLoading);
-  const updateCarSuccess = useSelector(selectUpdateCarSuccess);
-  const updateCarMsg = useSelector(selectUpdateCarMsg);
-  const deleteCarSuccess = useSelector(selectDeleteCarSuccess);
-  const deleteCarLoading = useSelector(selectDeleteCarLoading);
-  const deleteCarError = useSelector(selectDeleteCarError);
-  const deleteCarMsg = useSelector(selectDeleteCarMsg);
-  const changeCarStatusState = useSelector(selectChangeCarStatus);
+// const Test = () => {
+//   const nav = useNavigate();
+//   const location = useLocation();
+//   const dispatch = useDispatch();
+//   const [searchParams, setSearchParams] = useSearchParams();
+//   const [loading, setLoading] = useState(false);
+//   const [pagination, setPagination] = useState({
+//     current: 1, // Current page number
+//     total: 0, // Total number of records
+//   });
+//   const [open, setOpen] = useState(false);
+//   const [carId, setCarId] = useState(null);
+//   const [carStatus, setCarStatus] = useState(null);
+//   const [searchInputs, setSearchInputs] = useState({
+//     keyword: "",
+//     check_valid: null,
+//     branch: "",
+//     status: "",
+//   });
+//   const [initialCallMade, setInitialCallMade] = useState(false);
+//   const carList = useSelector(selectCarList);
+//   const total = useSelector(selectTotalCars);
+//   const carListLoading = useSelector(selectCarListLoading);
+//   const updateCarSuccess = useSelector(selectUpdateCarSuccess);
+//   const updateCarMsg = useSelector(selectUpdateCarMsg);
+//   const deleteCarSuccess = useSelector(selectDeleteCarSuccess);
+//   const deleteCarLoading = useSelector(selectDeleteCarLoading);
+//   const deleteCarError = useSelector(selectDeleteCarError);
+//   const deleteCarMsg = useSelector(selectDeleteCarMsg);
+//   const changeCarStatusState = useSelector(selectChangeCarStatus);
 
-  const getCarList = () => {
-    const queryString = generateQueryString(searchInputs);
-    dispatch(
-      getCarsListPaginate({
-        api: `carlists?page=${pagination.current}${queryString}`,
-      })
-    );
-  };
+//   const getCarList = () => {
+//     const queryString = generateQueryString(searchInputs);
+//     dispatch(
+//       getCarsListPaginate({
+//         api: `carlists?page=${pagination.current}${queryString}`,
+//       })
+//     );
+//   };
 
-  const searchHandler = () => {
-    setPagination((prev) => ({ ...prev, current: 1 })); // Reset to first page on search
-    setSearchInputs(searchParams);
+//   const searchHandler = () => {
+//     setPagination((prev) => ({ ...prev, current: 1 })); // Reset to first page on search
+//     setSearchInputs(searchParams);
 
-    const queryString = generateQueryString(searchParams);
-    nav(`${location.pathname}?${queryString}`, { replace: true });
-  };
+//     const queryString = generateQueryString(searchParams);
+//     nav(`${location.pathname}?${queryString}`, { replace: true });
+//   };
 
-  const fixAttributes = [
-    { folder: "car/", attributes: ["photo"] },
-    { folder: "front_licence/", attributes: ["licence_front"] },
-    { folder: "back_licence/", attributes: ["licence_back"] },
-    { folder: "owner_book", attributes: ["owner_book"] },
-  ];
-  const finalCarList = photoUrlFix(carList, fixAttributes);
+//   const fixAttributes = [
+//     { folder: "car/", attributes: ["photo"] },
+//     { folder: "front_licence/", attributes: ["licence_front"] },
+//     { folder: "back_licence/", attributes: ["licence_back"] },
+//     { folder: "owner_book", attributes: ["owner_book"] },
+//   ];
+//   const finalCarList = photoUrlFix(carList, fixAttributes);
 
-  const handleTableChange = (pagination) => {
-    setPagination(pagination);
-  };
+//   const handleTableChange = (pagination) => {
+//     setPagination(pagination);
+//   };
 
-  const handleInputKeyPress = (e) => {
-    if (e.key === "Enter") {
-      searchHandler();
-    }
-  };
+//   const handleInputKeyPress = (e) => {
+//     if (e.key === "Enter") {
+//       searchHandler();
+//     }
+//   };
 
-  const changeCarStatus = () => {
-    dispatch(
-      changeCar({
-        api: "updateStatus",
-        pData: { car_id: carId, status: carStatus },
-      })
-    );
-  };
+//   const changeCarStatus = () => {
+//     dispatch(
+//       changeCar({
+//         api: "updateStatus",
+//         pData: { car_id: carId, status: carStatus },
+//       })
+//     );
+//   };
 
-  const columns = carsColumns(nav, setOpen, setCarId, setCarStatus);
+//   const columns = carsColumns(nav, setOpen, setCarId, setCarStatus);
 
-  const getCarRowClassName = (record) => {
-    const licenseDate = new Date(record.licenceexpiredate);
-    const currentDate = new Date();
-    const oneMonthFromNow = new Date();
-    oneMonthFromNow.setMonth(currentDate.getMonth() + 1);
-    if (licenseDate < currentDate) {
-      return "table-row-red";
-    } else if (licenseDate <= oneMonthFromNow) {
-      return "table-row-yellow";
-    } else {
-      return "table-row-default";
-    }
-  };
+//   const getCarRowClassName = (record) => {
+//     const licenseDate = new Date(record.licenceexpiredate);
+//     const currentDate = new Date();
+//     const oneMonthFromNow = new Date();
+//     oneMonthFromNow.setMonth(currentDate.getMonth() + 1);
+//     if (licenseDate < currentDate) {
+//       return "table-row-red";
+//     } else if (licenseDate <= oneMonthFromNow) {
+//       return "table-row-yellow";
+//     } else {
+//       return "table-row-default";
+//     }
+//   };
 
-  useEffect(() => {
-    deleteCarSuccess &&
-      toast.success(deleteCarMsg, {
-        position: "bottom-right",
-        autoClose: 5000,
-        closeOnClick: true,
-        theme: "light",
-      });
-    deleteCarError &&
-      toast.error(deleteCarMsg, {
-        position: "bottom-right",
-        autoClose: 5000,
-        closeOnClick: true,
-        theme: "light",
-      });
-  }, [deleteCarSuccess, deleteCarError]);
+//   useEffect(() => {
+//     deleteCarSuccess &&
+//       toast.success(deleteCarMsg, {
+//         position: "bottom-right",
+//         autoClose: 5000,
+//         closeOnClick: true,
+//         theme: "light",
+//       });
+//     deleteCarError &&
+//       toast.error(deleteCarMsg, {
+//         position: "bottom-right",
+//         autoClose: 5000,
+//         closeOnClick: true,
+//         theme: "light",
+//       });
+//   }, [deleteCarSuccess, deleteCarError]);
 
-  useEffect(() => {
-    updateCarSuccess &&
-      toast.success(updateCarMsg, {
-        position: "bottom-right",
-        autoClose: 5000,
-        closeOnClick: true,
-        theme: "light",
-      });
-  }, [updateCarSuccess]);
+//   useEffect(() => {
+//     updateCarSuccess &&
+//       toast.success(updateCarMsg, {
+//         position: "bottom-right",
+//         autoClose: 5000,
+//         closeOnClick: true,
+//         theme: "light",
+//       });
+//   }, [updateCarSuccess]);
 
-  useEffect(() => {
-    const params = Object.fromEntries([...searchParams]);
-    setSearchParams((prev) => ({ ...prev, ...params }));
-    setSearchInputs((prev) => ({ ...prev, ...params }));
-    setInitialCallMade(true);
-  }, [searchParams]);
+//   useEffect(() => {
+//     const params = Object.fromEntries([...searchParams]);
+//     setSearchParams((prev) => ({ ...prev, ...params }));
+//     setSearchInputs((prev) => ({ ...prev, ...params }));
+//     setInitialCallMade(true);
+//   }, [searchParams]);
 
-  useEffect(() => {
-    if (initialCallMade) {
-      getCarList();
-    }
-  }, [
-    pagination.current,
-    searchInputs,
-    deleteCarSuccess,
-    changeCarStatusState,
-    initialCallMade,
-  ]);
+//   useEffect(() => {
+//     if (initialCallMade) {
+//       getCarList();
+//     }
+//   }, [
+//     pagination.current,
+//     searchInputs,
+//     deleteCarSuccess,
+//     changeCarStatusState,
+//     initialCallMade,
+//   ]);
 
-  useEffect(() => {
-    setLoading(carListLoading);
-    setPagination({ ...pagination, total: total });
-  }, [carListLoading, total]);
+//   useEffect(() => {
+//     setLoading(carListLoading);
+//     setPagination({ ...pagination, total: total });
+//   }, [carListLoading, total]);
 
-  useEffect(() => {
-    carStatus !== null && changeCarStatus();
-  }, [carStatus]);
+//   useEffect(() => {
+//     carStatus !== null && changeCarStatus();
+//   }, [carStatus]);
 
-  useEffect(() => {
-    searchHandler();
-  }, [
-    searchParams.branch,
-    searchParams.status,
-    searchParams.check_valid,
-    searchParams.fuel_type,
-  ]);
+//   useEffect(() => {
+//     searchHandler();
+//   }, [
+//     searchParams.branch,
+//     searchParams.status,
+//     searchParams.check_valid,
+//     searchParams.fuel_type,
+//   ]);
 
-  return (
-    <Container>
-      <Loader spin={deleteCarLoading} />
-      <Notification />
-      <ModalCmp
-        title={"Delete"}
-        open={open}
-        text={"Are you sure to delete this Car?"}
-        onCancel={() => setOpen(false)}
-        onOk={() => {
-          setOpen(false);
-          dispatch(deleteCar({ api: `car_delete/${carId}` }));
-        }}
-      />
-      <h1 className="text-4xl py-4">Car List</h1>
-      <div className="row justify-between flex flex-wrap w-auto mb-4 sm:mb-2">
-        <div className="flex w-auto gap-10 mb-2 flex-wrap">
-          <CustomInput
-            placeholder={"2K-1234"}
-            className={"sm:w-[10rem] w-[80%]"}
-            value={searchParams.keyword}
-            onChange={(e) =>
-              setSearchParams((prev) => ({ ...prev, keyword: e.target.value }))
-            }
-            onKeyPress={handleInputKeyPress}
-          />
-          <CustomSelect
-            className={"sm:w-[12rem] w-[80%]"}
-            options={selectFuelType}
-            value={searchParams.fuel_type}
-            onChange={(value) =>
-              setSearchParams((prev) => ({ ...prev, fuel_type: value }))
-            }
-          />
-          <CustomSelect
-            className={"sm:w-[12rem] w-[80%]"}
-            options={selectValidation}
-            value={searchParams.check_valid}
-            onChange={(value) =>
-              setSearchParams((prev) => ({ ...prev, check_valid: value }))
-            }
-          />
-          <CustomSelect
-            value={searchParams.branch}
-            options={selectBranch}
-            className={"sm:w-[12rem] w-[80%]"}
-            onChange={(value) =>
-              setSearchParams((prev) => ({ ...prev, branch: value }))
-            }
-          />
-          <CustomSelect
-            value={searchParams.status}
-            options={selectStatus}
-            className={"sm:w-[10rem] w-[80%]"}
-            onChange={(value) =>
-              setSearchParams((prev) => ({ ...prev, status: value }))
-            }
-          />
-        </div>
-        <div className="w-auto">
-          <CustomButton
-            text={"Add New Car"}
-            icon={<FaPlus />}
-            className={"text-white bg-[#00a65a] "}
-            click={() => {
-              nav("create");
-            }}
-          />
-        </div>
-      </div>
+//   return (
+//     <Container>
+//       <Loader spin={deleteCarLoading} />
+//       <Notification />
+//       <ModalCmp
+//         title={"Delete"}
+//         open={open}
+//         text={"Are you sure to delete this Car?"}
+//         onCancel={() => setOpen(false)}
+//         onOk={() => {
+//           setOpen(false);
+//           dispatch(deleteCar({ api: `car_delete/${carId}` }));
+//         }}
+//       />
+//       <h1 className="text-4xl py-4">Car List</h1>
+//       <div className="row justify-between flex flex-wrap w-auto mb-4 sm:mb-2">
+//         <div className="flex w-auto gap-10 mb-2 flex-wrap">
+//           <CustomInput
+//             placeholder={"2K-1234"}
+//             className={"sm:w-[10rem] w-[80%]"}
+//             value={searchParams.keyword}
+//             onChange={(e) =>
+//               setSearchParams((prev) => ({ ...prev, keyword: e.target.value }))
+//             }
+//             onKeyPress={handleInputKeyPress}
+//           />
+//           <CustomSelect
+//             className={"sm:w-[12rem] w-[80%]"}
+//             options={selectFuelType}
+//             value={searchParams.fuel_type}
+//             onChange={(value) =>
+//               setSearchParams((prev) => ({ ...prev, fuel_type: value }))
+//             }
+//           />
+//           <CustomSelect
+//             className={"sm:w-[12rem] w-[80%]"}
+//             options={selectValidation}
+//             value={searchParams.check_valid}
+//             onChange={(value) =>
+//               setSearchParams((prev) => ({ ...prev, check_valid: value }))
+//             }
+//           />
+//           <CustomSelect
+//             value={searchParams.branch}
+//             options={selectBranch}
+//             className={"sm:w-[12rem] w-[80%]"}
+//             onChange={(value) =>
+//               setSearchParams((prev) => ({ ...prev, branch: value }))
+//             }
+//           />
+//           <CustomSelect
+//             value={searchParams.status}
+//             options={selectStatus}
+//             className={"sm:w-[10rem] w-[80%]"}
+//             onChange={(value) =>
+//               setSearchParams((prev) => ({ ...prev, status: value }))
+//             }
+//           />
+//         </div>
+//         <div className="w-auto">
+//           <CustomButton
+//             text={"Add New Car"}
+//             icon={<FaPlus />}
+//             className={"text-white bg-[#00a65a] "}
+//             click={() => {
+//               nav("create");
+//             }}
+//           />
+//         </div>
+//       </div>
 
-      <p>Total - {total}</p>
-      <CustomTable
-        columns={columns}
-        data={finalCarList}
-        rowClassName={getCarRowClassName}
-        scroll={{ x: "100vw" }}
-        pagination={pagination}
-        onChange={handleTableChange}
-        loading={loading}
-      />
-    </Container>
-  );
-};
+//       <p>Total - {total}</p>
+//       <CustomTable
+//         columns={columns}
+//         data={finalCarList}
+//         rowClassName={getCarRowClassName}
+//         scroll={{ x: "100vw" }}
+//         pagination={pagination}
+//         onChange={handleTableChange}
+//         loading={loading}
+//       />
+//     </Container>
+//   );
+// };
 
-export default Test;
+// export default Test;

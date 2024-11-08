@@ -44,7 +44,7 @@ const LuckyNumbers = () => {
     pageSizeOptions: [100, 200, 300, 500, 1000],
   });
   const [searchParams, setSearchParams] = useState({
-    code: "",
+    keyword: "",
     reward: "",
     status: "",
   });
@@ -61,8 +61,9 @@ const LuckyNumbers = () => {
   const handleInputKeyPress = (e) => {
     // console.log(e, "key Entered");
     if (e.key === "Enter") {
+      console.log(e);
       // searchHandler();
-      setSearchParams((prev) => ({ ...prev, code: e.target.value }));
+      setSearchParams((prev) => ({ ...prev, keyword: e.target.value }));
     }
   };
 
@@ -174,7 +175,7 @@ const LuckyNumbers = () => {
             // }
             placeholder={"ab12345678"}
             className="sm:w-[10rem] w-[80%]"
-            onKeyPress={handleInputKeyPress}
+            onKeyDown={handleInputKeyPress}
             // value={searchParams.code}
           />
           <CustomSelect

@@ -2,7 +2,7 @@ import { Button, Image } from "antd";
 import React, { useEffect, useState } from "react";
 import ModalCmp from "../Modal/ModalCmp";
 import { useDispatch } from "react-redux";
-import { deleteMaintenancePhoto } from "../../app/MaintenanceSlice/MaintenanceSlice";
+// import { deleteMaintenancePhoto } from "../../app/MaintenanceSlice/MaintenanceSlice";
 
 const ImgBox = ({ width, height, className, img, deleteAble = true }) => {
   const [image, setImage] = useState([]);
@@ -17,7 +17,7 @@ const ImgBox = ({ width, height, className, img, deleteAble = true }) => {
   const handleDelete = (index, item) => {
     const newImages = image.filter((_, i) => i !== index);
     setImage(newImages);
-    dispatch(deleteMaintenancePhoto({ api: `delete-photo?id=${item.id}` }));
+    // dispatch(deleteMaintenancePhoto({ api: `delete-photo?id=${item.id}` }));
   };
   if (Array.isArray(img)) {
     return (
