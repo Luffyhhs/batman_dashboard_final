@@ -182,7 +182,7 @@ export const luckyColumns = (nav, setLuckyStatus, setLuckyId, setOpen) => {
       key: "status",
       render: (text, record) => {
         return (
-          <div className="flex gap-2">
+          <div className="flex gap-2" key={record._id + text}>
             {record.status !== "requested" &&
               record.status !== "out" &&
               !record?.presetAgent && (
@@ -204,13 +204,26 @@ export const luckyColumns = (nav, setLuckyStatus, setLuckyId, setOpen) => {
       title: "Reward Name",
       dataIndex: "reward.name",
       key: "reward.name",
-      render: (text, record) => record?.reward?.name,
+      render: (text, record) => {
+        // console.log(text);
+        return (
+          <div key={`${record._id}${record?.reward?.name}`}>
+            {record?.reward?.name}
+          </div>
+        );
+      },
     },
     {
       title: "Agent Name",
       dataIndex: "presetAgent.name",
       key: "presetAgent.name",
-      render: (text, record) => record?.presetAgent?.name,
+      render: (text, record) => {
+        return (
+          <div key={`${record._id}${record?.presetAgent?.name}`}>
+            {record?.presetAgent?.name}
+          </div>
+        );
+      },
     },
     {
       title: "Out Time",
@@ -277,7 +290,11 @@ export const luckyColumns = (nav, setLuckyStatus, setLuckyId, setOpen) => {
         // console.log(menuItems);
         return (
           record.status !== "out" && (
-            <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
+            <Dropdown
+              menu={{ items: menuItems }}
+              trigger={["click"]}
+              key={record._id + record?.outTime}
+            >
               <a
                 className="ant-dropdown-link flex items-center"
                 onClick={(e) => e.preventDefault()}
@@ -633,7 +650,8 @@ export const agentReportColumns = (dispatch) => {
         console.log(text, record);
         return record?.lucky?.code;
       },
-    },{
+    },
+    {
       title: "Lucky Value",
       dataIndex: "lucky_value",
       key: "lucky_value",

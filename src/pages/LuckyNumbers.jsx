@@ -25,6 +25,7 @@ const LuckyNumbers = () => {
   const dispatch = useDispatch();
   const total = useSelector((state) => state.lucky.luckyArrTotal);
   const luckyArr = useSelector((state) => state.lucky.luckyArr);
+  const luckyArrStatus = useSelector((state) => state.lucky.luckyArrStatus);
   // const luckyArrStatus = useSelector();
   // console.log(total);
   const rewardSelectBoxData = useSelector(
@@ -203,7 +204,7 @@ const LuckyNumbers = () => {
         rowClassName={getDriverRowClassName}
         pagination={pagination}
         onChange={handleTableChange}
-        // loading={driverListStatus === "loading"}
+        loading={luckyArrStatus === "loading"}
       />
     </Container>
   );
