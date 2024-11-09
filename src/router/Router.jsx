@@ -67,6 +67,7 @@ const Router = () => {
               <>
                 <Route index element={<Users />} />
                 <Route path="report" element={<AgentReports />} />
+                <Route path="more-winner" element={<Top10 hideTop={true} />} />
               </>
             )}
           </Route>

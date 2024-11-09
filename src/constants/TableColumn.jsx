@@ -589,6 +589,14 @@ export const reportColumns = () => {
       },
     },
     {
+      title: "Prize",
+      dataIndex: "prize",
+      key: "prize",
+      render: (text, record) => {
+        return record?.reward?.name;
+      },
+    },
+    {
       title: "User",
       dataIndex: "user.name",
       key: "user.name",

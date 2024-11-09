@@ -59,6 +59,7 @@ export const sideBarData = (currentUser) => {
       ]
     : [
         { label: "Dashboard", icon: <FaHome />, key: "/" },
+        { label: "More Winner", icon: <FaList />, key: "/more-winner" },
         { label: "Report", icon: <TbReport />, key: "/report" },
       ];
 };

@@ -15,7 +15,7 @@ const Terms = () => {
   const dispatch = useDispatch();
   const modifyTermsStatus = useSelector((state) => state.ui.modifyTermsStatus);
   const onFinish = (values) => {
-    values.settingName = "Terms & Conditions";
+    values.settingName = "Terms";
     dispatch(modifyTerms({ api: "uiThing", pData: values }));
   };
 

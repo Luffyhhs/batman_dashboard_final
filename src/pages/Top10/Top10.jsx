@@ -17,7 +17,7 @@ import {
 import Notification from "../../components/Notification";
 import { toast } from "react-toastify";
 
-const Top10 = () => {
+const Top10 = ({ hideTop = false }) => {
   const dispatch = useDispatch();
   const addMoreWinnerStatus = useSelector(
     (state) => state.ui.addMoreWinnerStatus
@@ -80,10 +80,12 @@ const Top10 = () => {
           <PagesTitle title={"Add MoreWinners List"} />
           <CustomForm data={modifyMoreWinnerInputs()} onFinish={onFinish} />
         </div>
-        <div className=" col-span-1 shadow-md py-2">
-          <PagesTitle title={"Modify Top 10 List"} />
-          <CustomForm data={top10Inputs} onFinish={topListOnFinish} />
-        </div>
+        {!hideTop && (
+          <div className=" col-span-1 shadow-md py-2">
+            <PagesTitle title={"Modify Top 10 List"} />
+            <CustomForm data={top10Inputs} onFinish={topListOnFinish} />
+          </div>
+        )}
       </div>
     </Container>
   );

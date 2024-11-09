@@ -8,6 +8,7 @@ import CustomSelect from "../../components/Inputs/CustomSelect";
 import { useDispatch, useSelector } from "react-redux";
 import { getReportList } from "../../app/ReportSlice/ReportSlice";
 import { FaFileExcel } from "react-icons/fa6";
+import dayjs from "dayjs";
 import {
   generateQueryString,
   transformSearchParams,
@@ -128,13 +129,23 @@ const Reports = () => {
             type="date"
             className={"w-[90%] sm:w-[12rem]"}
             placeholder={"From Date: dd-mm-yyyy"}
-            onChange={(e) => setSearchParams({ ...searchParams, fromDate: e })}
+            onChange={(e) =>
+              setSearchParams({
+                ...searchParams,
+                fromDate: dayjs(e).format("DD-MM-YYYY"),
+              })
+            }
           />
           <CustomInput
             type="date"
             className={"w-[90%] sm:w-[12rem]"}
             placeholder={"To Date: dd-mm-yyyy"}
-            onChange={(e) => setSearchParams({ ...searchParams, toDate: e })}
+            onChange={(e) =>
+              setSearchParams({
+                ...searchParams,
+                toDate: dayjs(e).format("DD-MM-YYYY"),
+              })
+            }
           />
         </div>
         <CustomTable
