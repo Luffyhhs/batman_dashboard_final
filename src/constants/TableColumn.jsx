@@ -5,6 +5,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { dateFormatChange } from "../utilities/UtilFunctions";
 import dayjs from "dayjs";
 import { updateReport } from "../app/ReportSlice/ReportSlice";
+import { renderMatches } from "react-router-dom";
 
 export const carouselAdsColumns = (setAdsId, setOpen) => {
   return [
@@ -584,7 +585,7 @@ export const reportColumns = () => {
       dataIndex: "lucky_value",
       key: "lucky_value",
       render: (text, record) => {
-        return record?.lucky?.value;
+        return record?.reward?.value;
       },
     },
     {
@@ -657,7 +658,15 @@ export const agentReportColumns = (dispatch) => {
       key: "lucky_value",
       render: (text, record) => {
         console.log(text, record);
-        return record?.lucky?.value;
+        return record?.reward?.value;
+      },
+    },
+    {
+      title: "Prize",
+      dataIndex: "prize",
+      key: "prize",
+      render: (text, record) => {
+        return record.reward.name;
       },
     },
     {

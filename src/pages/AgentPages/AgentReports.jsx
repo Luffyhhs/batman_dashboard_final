@@ -15,6 +15,9 @@ import { Table } from "antd";
 const AgentReports = () => {
   const dispatch = useDispatch();
   const reportList = useSelector((state) => state.report.reportList);
+  const reportListStatus = useSelector(
+    (state) => state.report.reportListStatus
+  );
   const reportListTotal = useSelector((state) => state.report.reportListTotal);
   const updateReportStatus = useSelector(
     (state) => state.report.updateReportStatus
@@ -40,7 +43,7 @@ const AgentReports = () => {
 
   const generateSummary = (data) => {
     const totalAmt = data.reduce(
-      (total, item) => total + item?.lucky?.value,
+      (total, item) => total + item?.reward?.value,
       0
     );
     // const liters = data.reduce((total, item) => total + item.liters, 0);
@@ -131,6 +134,7 @@ const AgentReports = () => {
           onChange={handleTableChange}
           pagination={pagination}
           summary={summary}
+          loading={reportListStatus === "loading"}
         />
       </div>
     </Container>

@@ -17,6 +17,9 @@ import { Table } from "antd";
 const Reports = () => {
   const dispatch = useDispatch();
   const reportList = useSelector((state) => state.report.reportList);
+  const reportListStatus = useSelector(
+    (state) => state.report.reportListStatus
+  );
   const reportListTotal = useSelector((state) => state.report.reportListTotal);
   const agentSelectBox = useSelector((state) => state.user.agentSelectBox);
   console.log(agentSelectBox);
@@ -45,7 +48,7 @@ const Reports = () => {
   const columns = reportColumns();
   const generateSummary = (data) => {
     const totalAmt = data.reduce(
-      (total, item) => total + item?.lucky?.value,
+      (total, item) => total + item?.reward?.value,
       0
     );
     // const liters = data.reduce((total, item) => total + item.liters, 0);
@@ -150,6 +153,7 @@ const Reports = () => {
           }}
           extraButton={true}
           summary={summary}
+          loading={reportListStatus === "loading"}
         />
       </div>
     </Container>
