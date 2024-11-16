@@ -13,16 +13,19 @@ import {
   resetCreateUserStatus,
   resetUpdateUserStatus,
   selectUser,
+  selectUserListStatus,
   updateUser,
 } from "../../app/UserSlice/UserSlice";
 import Notification from "../../components/Notification";
 import { toast } from "react-toastify";
 import ModalCmp from "../../components/Modal/ModalCmp";
 import CustomInput from "../../components/Inputs/CustomInput";
+import { FaCheck, FaCopy } from "react-icons/fa6";
 
 const Users = () => {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.user.userList);
+  const userListStatus = useSelector(selectUserListStatus);
   const currentUser = useSelector(selectUser);
   const createUserStatus = useSelector((state) => state.user.createUserStatus);
   const createUserMsg = useSelector((state) => state.user.createUserMsg);
@@ -31,15 +34,33 @@ const Users = () => {
 
   const [banOpen, setBanOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [copyOpen, setCopyOpen] = useState(false);
+  const [createdUser, setCreatedUser] = useState({});
+  const [minus, setMinus] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [topUpAmt, setTopUpAmt] = useState(0);
+  const [topUpAmt, setTopUpAmt] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
 
   const onFinish = (values) => {
     values.upLine = currentUser._id;
+    setCreatedUser(values);
     dispatch(createUser({ api: "user", pData: values }));
+  };
+
+  const handleCopyAll = async () => {
+    const textToCopy = `User Id: ${createdUser?.name}\nPassword: ${createdUser?.password}\nLink: https://batman688.vip`;
+
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
   };
   useEffect(() => {
     if (createUserStatus === "success") {
+      setCopyOpen(true);
       toast.success("Succeed", {
         position: "top-right",
         autoClose: 3000,
@@ -93,12 +114,38 @@ const Users = () => {
       <CustomInput
         type="number"
         placeholder={"Top Up Amount"}
+        value={topUpAmt}
         onChange={(e) => setTopUpAmt(e.target.value)}
       />
     );
   };
   return (
     <Container>
+      {
+        <ModalCmp
+          open={copyOpen}
+          onCancel={() => {
+            setCopyOpen(false);
+          }}
+          footer={null}
+          title={"Copy Text"}
+          text={
+            <>
+              <button
+                className="bg-[#3c8dbc] text-white p-2 rounded mr-auto"
+                onClick={handleCopyAll}
+              >
+                {isCopied ? <FaCheck /> : <FaCopy />}
+              </button>
+              <div className="flex flex-col gap-2">
+                <p>UserId: {createdUser?.name}</p>
+                <p>Password: {createdUser?.password}</p>
+                <p>Link: https://batman688.vip</p>
+              </div>
+            </>
+          }
+        />
+      }
       <ModalCmp
         open={banOpen}
         onCancel={() => setBanOpen(false)}
@@ -117,8 +164,12 @@ const Users = () => {
         onOk={() => {
           setEditOpen(false);
           dispatch(
-            updateUser({ api: `user/${userId}`, pData: { deposits: topUpAmt } })
+            updateUser({
+              api: `user/${userId}`,
+              pData: { deposits: minus ? -topUpAmt : topUpAmt },
+            })
           );
+          setTopUpAmt("");
         }}
         title="TopUp User"
         text={editModal()}
@@ -129,7 +180,8 @@ const Users = () => {
         <CustomForm data={createUserInputs} onFinish={onFinish} />
         <CustomTable
           data={userList}
-          columns={userColumns(setBanOpen, setEditOpen, setUserId)}
+          loading={userListStatus === "loading"}
+          columns={userColumns(setBanOpen, setEditOpen, setUserId, setMinus)}
         />
       </div>
     </Container>

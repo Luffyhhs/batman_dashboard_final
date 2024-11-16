@@ -1,7 +1,13 @@
 import { Avatar, Dropdown, Menu, Switch } from "antd";
 import CustomButton from "../components/Buttons/CustomButton";
-import { FaAngleDown, FaEye, FaTrashCan } from "react-icons/fa6";
-import { FaRegEdit } from "react-icons/fa";
+import {
+  FaAngleDown,
+  FaEye,
+  FaMinus,
+  FaPlus,
+  FaTrashCan,
+} from "react-icons/fa6";
+import { FaMinusCircle, FaPlusCircle, FaRegEdit } from "react-icons/fa";
 import { dateFormatChange } from "../utilities/UtilFunctions";
 import dayjs from "dayjs";
 import { updateReport } from "../app/ReportSlice/ReportSlice";
@@ -338,7 +344,7 @@ export const lotteryColumns = () => {
   ];
 };
 
-export const agentColumns = (setBanOpen, setEditOpen, setAgentId) => {
+export const agentColumns = (setBanOpen, setEditOpen, setAgentId, setMinus) => {
   return [
     {
       title: "No",
@@ -359,6 +365,36 @@ export const agentColumns = (setBanOpen, setEditOpen, setAgentId) => {
       title: "Unit",
       dataIndex: "unit",
       key: "unit",
+      render: (text, record) => {
+        return (
+          <div
+            key={`${record._id}${record?.unit}`}
+            className="flex justify-between"
+          >
+            <div
+              className=" flex gap-2 items-center"
+              onClick={() => {
+                setEditOpen(true);
+                setAgentId(record._id);
+                setMinus(false);
+              }}
+            >
+              <FaPlusCircle />
+            </div>
+            <p>{text}</p>
+            <div
+              className=" flex gap-2 items-center"
+              onClick={() => {
+                setEditOpen(true);
+                setAgentId(record._id);
+                setMinus(true);
+              }}
+            >
+              <FaMinusCircle />
+            </div>
+          </div>
+        );
+      },
     },
     {
       title: "Status",
@@ -432,24 +468,33 @@ export const agentColumns = (setBanOpen, setEditOpen, setAgentId) => {
         // console.log(menuItems);
         return (
           record.status !== "out" && (
-            <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
-              <a
-                className="ant-dropdown-link flex items-center"
-                onClick={(e) => e.preventDefault()}
-              >
-                Actions{" "}
-                <span>
-                  <FaAngleDown />
-                </span>
-              </a>
-            </Dropdown>
+            <div
+              className=" flex gap-2 items-center"
+              onClick={() => {
+                setBanOpen(true);
+                setAgentId(record._id);
+              }}
+            >
+              <FaTrashCan /> <span className=" inline-block">Ban</span>
+            </div>
+            // <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
+            //   <a
+            //     className="ant-dropdown-link flex items-center"
+            //     onClick={(e) => e.preventDefault()}
+            //   >
+            //     Actions{" "}
+            //     <span>
+            //       <FaAngleDown />
+            //     </span>
+            //   </a>
+            // </Dropdown>
           )
         );
       },
     },
   ];
 };
-export const userColumns = (setBanOpen, setEditOpen, setUserId) => {
+export const userColumns = (setBanOpen, setEditOpen, setUserId, setMinus) => {
   return [
     {
       title: "No",
@@ -470,6 +515,36 @@ export const userColumns = (setBanOpen, setEditOpen, setUserId) => {
       title: "Unit",
       dataIndex: "deposits",
       key: "deposits",
+      render: (text, record) => {
+        return (
+          <div
+            key={`${record._id}${record?.unit}`}
+            className="flex justify-between"
+          >
+            <div
+              className=" flex gap-2 items-center"
+              onClick={() => {
+                setEditOpen(true);
+                setUserId(record._id);
+                setMinus(false);
+              }}
+            >
+              <FaPlusCircle />
+            </div>
+            <p>{text}</p>
+            <div
+              className=" flex gap-2 items-center"
+              onClick={() => {
+                setEditOpen(true);
+                setUserId(record._id);
+                setMinus(true);
+              }}
+            >
+              <FaMinusCircle />
+            </div>
+          </div>
+        );
+      },
     },
     {
       title: "Status",
@@ -543,17 +618,26 @@ export const userColumns = (setBanOpen, setEditOpen, setUserId) => {
         // console.log(menuItems);
         return (
           record.status !== "out" && (
-            <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
-              <a
-                className="ant-dropdown-link flex items-center"
-                onClick={(e) => e.preventDefault()}
-              >
-                Actions{" "}
-                <span>
-                  <FaAngleDown />
-                </span>
-              </a>
-            </Dropdown>
+            <div
+              className=" flex gap-2 items-center"
+              onClick={() => {
+                setBanOpen(true);
+                setUserId(record._id);
+              }}
+            >
+              <FaTrashCan /> <span className=" inline-block">Ban</span>
+            </div>
+            // <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
+            //   <a
+            //     className="ant-dropdown-link flex items-center"
+            //     onClick={(e) => e.preventDefault()}
+            //   >
+            //     Actions{" "}
+            //     <span>
+            //       <FaAngleDown />
+            //     </span>
+            //   </a>
+            // </Dropdown>
           )
         );
       },
