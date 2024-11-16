@@ -30,7 +30,7 @@ const Top10 = ({ hideTop = false }) => {
   const onFinish = (values) => {
     const data = { settingName: "More Winner", moreName: values };
     dispatch(addMoreWinner({ api: "uiThing", postData: data }));
-    console.log(data);
+    // console.log(data);
   };
   const topListOnFinish = (values) => {
     const { settingName, ...rest } = values;

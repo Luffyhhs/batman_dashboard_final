@@ -23,8 +23,8 @@ const Reports = () => {
   );
   const reportListTotal = useSelector((state) => state.report.reportListTotal);
   const agentSelectBox = useSelector((state) => state.user.agentSelectBox);
-  console.log(agentSelectBox);
-  console.log(reportList);
+  // console.log(agentSelectBox);
+  // console.log(reportList);
   const [pagination, setPagination] = useState({
     current: 1,
     total: reportListTotal,

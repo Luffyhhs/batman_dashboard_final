@@ -12,7 +12,7 @@ const TopBar = () => {
     dispatch(logout());
   };
   const currentUser = useSelector(selectUser);
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <>

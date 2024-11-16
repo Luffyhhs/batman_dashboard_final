@@ -62,7 +62,7 @@ const LuckyNumbers = () => {
   const handleInputKeyPress = (e) => {
     // console.log(e, "key Entered");
     if (e.key === "Enter") {
-      console.log(e);
+      // console.log(e);
       // searchHandler();
       setSearchParams((prev) => ({ ...prev, keyword: e.target.value }));
     }

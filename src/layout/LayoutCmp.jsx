@@ -50,7 +50,7 @@ const LayoutCmp = () => {
     agentList.unshift({ label: "Select Agent...", value: "" });
     currentUser.role === "Admin" && dispatch(setAgentSelectBox(agentList));
   }, [userList]);
-  console.log(userList);
+  // console.log(userList);
   const getUsers = useCallback(() => {
     currentUser.role === "Admin"
       ? dispatch(getDownLineUsers({ api: "user?role=Agent" }))

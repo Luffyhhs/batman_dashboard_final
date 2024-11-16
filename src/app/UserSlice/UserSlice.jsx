@@ -62,7 +62,7 @@ export const getOwnUserInfo = createAsyncThunk(
           JSON.stringify(response.data.refreshToken)
         );
       }
-      console.log(response);
+      // console.log(response);
       return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
@@ -91,7 +91,7 @@ export const updateUser = createAsyncThunk(
     try {
       const response = await postDataWithToken(api, pData);
       if (response.status === "failed") {
-        console.log(response);
+        // console.log(response);
         return thunkApi.rejectWithValue(response);
       }
       return response;

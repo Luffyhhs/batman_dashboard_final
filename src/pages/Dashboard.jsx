@@ -47,7 +47,7 @@ const Dashboard = () => {
   const modifyAdsMsg = useSelector((state) => state.ui.modifyAdsMsg);
   const modifyWheelMsg = useSelector((state) => state.ui.modifyWheelMsg);
 
-  console.log(adsArr);
+  // console.log(adsArr);
   useEffect(() => {
     dispatch(getAds({ api: "ads" }));
     (deleteAdsStatus === "fail" || deleteAdsStatus === "success") &&
@@ -61,7 +61,7 @@ const Dashboard = () => {
     (modifyWheelStatus === "fail" || modifyWheelStatus === "success") &&
       dispatch(resetWheelStatus());
   }, [modifyWheelStatus]);
-  console.log(modifyWheelStatus, deleteAdsStatus);
+  // console.log(modifyWheelStatus, deleteAdsStatus);
   const adsOnFinish = (values) => {
     dispatch(modifyAds({ api: `ads`, postData: values }));
   };

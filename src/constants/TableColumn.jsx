@@ -337,7 +337,7 @@ export const lotteryColumns = () => {
       dataIndex: "user.name",
       key: "user.name",
       render: (text, record) => {
-        console.log(text, record);
+        // console.log(text, record);
         return record?.user?.name;
       },
     },
@@ -660,7 +660,7 @@ export const reportColumns = () => {
       dataIndex: "lucky_code",
       key: "lucky_code",
       render: (text, record) => {
-        console.log(text, record);
+        // console.log(text, record);
         return record?.lucky?.code;
       },
     },
@@ -685,7 +685,7 @@ export const reportColumns = () => {
       dataIndex: "user.name",
       key: "user.name",
       render: (text, record) => {
-        console.log(text, record);
+        // console.log(text, record);
         return record?.user?.name;
       },
     },
@@ -740,7 +740,7 @@ export const agentReportColumns = (dispatch) => {
       dataIndex: "lucky_code",
       key: "lucky_code",
       render: (text, record) => {
-        console.log(text, record);
+        // console.log(text, record);
         return record?.lucky?.code;
       },
     },
@@ -749,7 +749,7 @@ export const agentReportColumns = (dispatch) => {
       dataIndex: "lucky_value",
       key: "lucky_value",
       render: (text, record) => {
-        console.log(text, record);
+        // console.log(text, record);
         return record?.reward?.value;
       },
     },
@@ -766,7 +766,7 @@ export const agentReportColumns = (dispatch) => {
       dataIndex: "user.name",
       key: "user.name",
       render: (text, record) => {
-        console.log(text, record);
+        // console.log(text, record);
         return record?.user?.name;
       },
     },
@@ -782,7 +782,7 @@ export const agentReportColumns = (dispatch) => {
               <Switch
                 defaultChecked={text}
                 onChange={(e) => {
-                  console.log(e);
+                  // console.log(e);
                   dispatch(
                     updateReport({ api: "report", pData: { id: record._id } })
                   );

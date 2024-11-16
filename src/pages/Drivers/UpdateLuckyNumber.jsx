@@ -25,7 +25,7 @@ const UpdateLuckyNumber = () => {
   const updateLuckyMsg = useSelector((state) => state.lucky.updateLuckyMsg);
   const onFinish = (values) => {
     values.status = "preset";
-    console.log(values);
+    // console.log(values);
     dispatch(
       updateLucky({ api: `lucky/${location.state._id}`, pData: values })
     );
@@ -51,7 +51,7 @@ const UpdateLuckyNumber = () => {
     if (updateLuckyStatus === "success") {
       const timer = setTimeout(() => {
         nav(-1);
-        console.log("work");
+        // console.log("work");
         dispatch(resetUpdateLuckyStatus());
       }, 3000);
 

@@ -16,7 +16,7 @@ export const getDataWithToken = async (api) => {
       expireToken();
     }
     const data = await response.json();
-    console.log(`${api}>> Get:`, data);
+    // console.log(`${api}>> Get:`, data);
     return data;
   } catch (error) {
     throw new Error("Error Getting Data", error);
@@ -38,10 +38,10 @@ export const postData = async (api, postData) => {
       expireToken();
     }
     const data = await response.json();
-    console.log(`${api}>> Post:`, data);
+    // console.log(`${api}>> Post:`, data);
     return data;
   } catch (error) {
-    console.log(error.stack);
+    // console.log(error.stack);
     throw new Error("Error in post request");
   }
 };
@@ -60,7 +60,7 @@ export const postDataWithToken = async (api, postData) => {
       expireToken();
     }
     const data = await response.json();
-    console.log(`${api}>> Post:`, data);
+    // console.log(`${api}>> Post:`, data);
     return data;
   } catch (error) {
     // console.log(error.stack);
@@ -83,7 +83,7 @@ export const putDataWithToken = async (api, postData) => {
       expireToken();
     }
     const data = await response.json();
-    console.log(`${api}>> Put:`, data);
+    // console.log(`${api}>> Put:`, data);
     return data;
   } catch (error) {
     // console.log(error.stack);
@@ -127,7 +127,7 @@ export const postMultipartDataWithToken = async (api, postData) => {
       expireToken();
     }
     const data = await response.json();
-    console.log(`${api}>> Post Multi:`, data);
+    // console.log(`${api}>> Post Multi:`, data);
     return data;
   } catch (error) {
     // console.log(error.stack);

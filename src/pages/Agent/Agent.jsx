@@ -28,7 +28,7 @@ const Agent = () => {
 
   const createUserStatus = useSelector((state) => state.user.createUserStatus);
   const updateUserStatus = useSelector((state) => state.user.updateUserStatus);
-  console.log(updateUserStatus);
+  // console.log(updateUserStatus);
   const updateUserMsg = useSelector((state) => state.user.updateUserMsg);
   const createUserMsg = useSelector((state) => state.user.createUserMsg);
   const userList = useSelector((state) => state.user.userList);
@@ -43,7 +43,7 @@ const Agent = () => {
   const [createdUser, setCreatedUser] = useState({});
   const [minus, setMinus] = useState(false);
 
-  console.log(userList);
+  // console.log(userList);
   const getDownLineAgent = useCallback(() => {
     dispatch(getDownLineUsers({ api: "user?role=Agent" }));
   }, [dispatch]);
@@ -51,7 +51,7 @@ const Agent = () => {
     values.role = "Agent";
     values.upLine = currentUser._id;
     setCreatedUser(values);
-    console.log(values);
+    // console.log(values);
     dispatch(createUser({ api: "user", pData: values }));
   };
   useEffect(() => {

@@ -45,7 +45,7 @@ const UpdateReward = () => {
     values.name = location.state.name;
     dispatch(modifyReward({ api: "reward", postData: values }));
   };
-  console.log(location);
+  // console.log(location);
   return (
     <Container>
       <Notification />
