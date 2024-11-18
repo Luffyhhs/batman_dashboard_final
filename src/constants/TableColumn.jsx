@@ -2,6 +2,8 @@ import { Avatar, Dropdown, Menu, Switch } from "antd";
 import CustomButton from "../components/Buttons/CustomButton";
 import {
   FaAngleDown,
+  FaCheck,
+  FaCopy,
   FaEye,
   FaMinus,
   FaPlus,
@@ -617,7 +619,7 @@ export const userColumns = (setBanOpen, setEditOpen, setUserId, setMinus) => {
 
         // console.log(menuItems);
         return (
-          record.status !== "out" && (
+          record.status && (
             <div
               className=" flex gap-2 items-center"
               onClick={() => {
@@ -725,7 +727,12 @@ export const reportColumns = () => {
     },
   ];
 };
-export const agentReportColumns = (dispatch) => {
+export const agentReportColumns = (
+  dispatch,
+  handleCopyAll,
+  isCopied,
+  setIsCopied
+) => {
   return [
     {
       title: "No",
@@ -758,7 +765,7 @@ export const agentReportColumns = (dispatch) => {
       dataIndex: "prize",
       key: "prize",
       render: (text, record) => {
-        return record.reward.name;
+        return record?.reward?.name;
       },
     },
     {
@@ -767,7 +774,16 @@ export const agentReportColumns = (dispatch) => {
       key: "user.name",
       render: (text, record) => {
         // console.log(text, record);
-        return record?.user?.name;
+        return (
+          <div className="flex justify-between items-center">
+            <p>{record?.user?.name}</p>
+            <button
+              onClick={() => handleCopyAll(record?.user?.name, setIsCopied)}
+            >
+              {isCopied ? <FaCheck /> : <FaCopy />}
+            </button>
+          </div>
+        );
       },
     },
     {

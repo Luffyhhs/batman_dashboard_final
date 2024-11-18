@@ -8,6 +8,7 @@ import {
   getOwnUserInfo,
   selectUser,
   setAgentSelectBox,
+  setUserSelectBox,
 } from "../app/UserSlice/UserSlice";
 
 import { Layout, Menu } from "antd";
@@ -43,13 +44,17 @@ const LayoutCmp = () => {
   const reward = useSelector((state) => state.reward.rewardArr);
   const userList = useSelector((state) => state.user.userList);
   useEffect(() => {
-    const agentList =
-      currentUser.role !== "Admin"
-        ? []
-        : userList.map((d) => ({ label: d.name, value: d._id }));
+    const agentList = userList.map((d) => ({ label: d.name, value: d._id }));
+    const userSelectData = userList.map((d) => ({
+      label: d.name,
+      value: d._id,
+    }));
+    userSelectData.unshift({ label: "Select User...", value: "" });
     agentList.unshift({ label: "Select Agent...", value: "" });
     currentUser.role === "Admin" && dispatch(setAgentSelectBox(agentList));
-  }, [userList]);
+    currentUser.role === "Agent" && dispatch(setUserSelectBox(userSelectData));
+    // const userList = currentUser.role === "Agent" ? userList : [];
+  }, [currentUser.role, dispatch, userList]);
   // console.log(userList);
   const getUsers = useCallback(() => {
     currentUser.role === "Admin"

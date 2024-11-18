@@ -8,6 +8,7 @@ import {
 
 const initialState = {
   agentSelectBox: [],
+  userSelectBox: [],
 
   userList: [],
   userListStatus: "idle",
@@ -75,7 +76,7 @@ export const createUser = createAsyncThunk(
   async ({ api, pData }, thunkApi) => {
     try {
       const response = await postDataWithToken(api, pData);
-      if (response.status === 0) {
+      if (response.status === "failed") {
         return thunkApi.rejectWithValue(response.message);
       }
       return response;
@@ -243,7 +244,7 @@ export const updateDriver = createAsyncThunk(
   async ({ api, pData }, thunkApi) => {
     try {
       const response = await postDataWithToken(api, pData);
-      if (response.status === 0) {
+      if (response.status === "failed") {
         return thunkApi.rejectWithValue(response.message);
       }
       return response;
@@ -265,6 +266,9 @@ const userSlice = createSlice({
     },
     setAgentSelectBox: (state, action) => {
       state.agentSelectBox = action.payload;
+    },
+    setUserSelectBox: (state, action) => {
+      state.userSelectBox = action.payload;
     },
     resetDeleteUserStatus: (state) => {
       // console.log("work");
@@ -335,7 +339,7 @@ const userSlice = createSlice({
       })
       .addCase(createUser.rejected, (state, action) => {
         state.createUserStatus = "fail";
-        state.createUserMsg = action.payload.message;
+        state.createUserMsg = action.payload;
       })
       .addCase(updateUser.pending, (state) => {
         state.updateUserStatus = "loading";
@@ -370,6 +374,7 @@ export const {
   setSelectBoxDrivers,
   resetDriverUpdateStats,
   resetUpdateUserStatus,
+  setUserSelectBox,
 } = userSlice.actions;
 
 export const selectUser = (state) => state.user.currentUser;

@@ -5,6 +5,7 @@ import PagesTitle from "../../components/PagesTitle";
 import { useDispatch, useSelector } from "react-redux";
 import {
   generateQueryString,
+  handleCopyAll,
   transformSearchParams,
 } from "../../utilities/UtilFunctions";
 import { getReportList } from "../../app/ReportSlice/ReportSlice";
@@ -14,6 +15,7 @@ import { Table } from "antd";
 
 const AgentReports = () => {
   const dispatch = useDispatch();
+  const [isCopied, setIsCopied] = useState(false);
   const reportList = useSelector((state) => state.report.reportList);
   const reportListStatus = useSelector(
     (state) => state.report.reportListStatus
@@ -39,7 +41,12 @@ const AgentReports = () => {
     return generateQueryString(transformParams);
   }, [searchParams]);
 
-  const columns = agentReportColumns(dispatch);
+  const columns = agentReportColumns(
+    dispatch,
+    handleCopyAll,
+    isCopied,
+    setIsCopied
+  );
 
   const generateSummary = (data) => {
     const totalAmt = data.reduce(

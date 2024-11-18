@@ -11,6 +11,16 @@ export const dateFormatChange = (date) => {
   return `${day}-${month}-${year}`;
 };
 
+export const handleCopyAll = async (text = "", setIsCopied = () => {}) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+  } catch (err) {
+    console.error("Failed to copy: ", err);
+  }
+};
+
 export const timeFormatChange = (date) => {
   const dateObj = new Date(date);
 
@@ -161,7 +171,7 @@ export const generateQueryString = (searchInputs) => {
     }
   }
 
-  return queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
+  return queryParams.length > 0 ? `${queryParams.join("&")}` : "";
 };
 
 export const transformSearchParams = (params) => {
