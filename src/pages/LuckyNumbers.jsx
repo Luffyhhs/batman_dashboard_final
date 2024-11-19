@@ -87,7 +87,7 @@ const LuckyNumbers = () => {
   useEffect(() => {
     dispatch(
       getLucky({
-        api: `lucky?page=${pagination.current}&limit=${pagination.pageSize}${memoizedQueryString}`,
+        api: `lucky?page=${pagination.current}&limit=${pagination.pageSize}&${memoizedQueryString}`,
       })
     );
   }, [pagination.current, pagination.pageSize, memoizedQueryString]);
